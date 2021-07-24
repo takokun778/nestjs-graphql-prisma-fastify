@@ -1,0 +1,43 @@
+scalar Date
+
+enum CRUD {
+    CREATE
+    READ
+    UPDATE
+    DELETE
+}
+
+interface Node {
+    id: ID!
+}
+
+type User implements Node {
+    id: ID!
+    firstName: String
+    lastName: String
+    birthday: Date
+}
+
+type UserOutput {
+    crud: CRUD!
+    users: [User]
+}
+
+input QueryUsersInput {
+    ids: [ID]
+}
+
+input MutationUsersInput {
+    id: ID
+    firstName: String
+    lastName: String
+    birthday: Date
+}
+
+type Query {
+    queryUsers(input: QueryUsersInput!): UserOutput
+}
+
+type Mutation {
+    mutationUsers(crud: CRUD!, inputs: [MutationUsersInput!]!): UserOutput
+}
